@@ -9,6 +9,7 @@ public class CameraManager : MonoBehaviour
     public Camera mainCamera;
 
     public CinemachineVirtualCamera cm;
+    private CinemachineBasicMultiChannelPerlin noise;
     public Transform cmCamera;
 
     Vector3 cameraInitialPosition;
@@ -16,6 +17,7 @@ public class CameraManager : MonoBehaviour
     [Header("Shake Control")]
     public float shakeMagnitude = 0.05f;
     public float shakeTime = 0.5f;
+
 
     private void OnEnable() 
     {
@@ -29,14 +31,36 @@ public class CameraManager : MonoBehaviour
         EventManager.RemoveHandler(GameEvent.OnGameOver,GameOver);
     }
 
+    private void Start() 
+    {
+        noise=cm.GetComponentInChildren<CinemachineBasicMultiChannelPerlin>();
+        if(noise == null)
+            Debug.LogError("No MultiChannelPerlin on the virtual camera.", this);
+        else
+            Debug.Log($"Noise Component: {noise}");
+    }
+
     void OnHit()
     {
-        //ShakeIt();
         ChangeFieldOfView(82,0.1f);
     }
 
     
+    #region CameraNoise
+    private void Noise(float amplitudeGain, float frequencyGain) 
+    {
+        noise.m_AmplitudeGain = amplitudeGain;
+        noise.m_FrequencyGain = frequencyGain;
+        StartCoroutine(ResetNoise(shakeTime));    
+    }
 
+    private IEnumerator ResetNoise(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        noise.m_AmplitudeGain = 0;
+        noise.m_FrequencyGain = 0;    
+    }
+    #endregion
     
 
     
@@ -67,30 +91,5 @@ public class CameraManager : MonoBehaviour
     }
 
 
-    #region CameraShaker
-
-    private void ShakeIt()
-    {
-        cameraInitialPosition = mainCamera.transform.position;
-        InvokeRepeating("StartCameraShaking", 0f, 0.005f);
-        Invoke("StopCameraShaking", shakeTime);
-
-    }
-
-    private void StartCameraShaking()
-    {
-        float cameraShakingOffsetX = Random.value * shakeMagnitude * 2 - shakeMagnitude;
-        float cameraShakingOffsetY = Random.value * shakeMagnitude * 2 - shakeMagnitude;
-        Vector3 cameraIntermediatePosition = mainCamera.transform.position;
-        cameraIntermediatePosition.x += cameraShakingOffsetX;
-        cameraIntermediatePosition.y += cameraShakingOffsetY;
-        mainCamera.transform.position = cameraIntermediatePosition;
-    }
-
-    private void StopCameraShaking()
-    {
-        CancelInvoke("StartCameraShaking");
-        mainCamera.transform.position = cameraInitialPosition;
-    }
-    #endregion    
+    
 }
