@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PathData
   m_EditorClassIdentifier: 
   tempPathNumber: 0
-  pathNumber: 10
+  pathNumber: 0

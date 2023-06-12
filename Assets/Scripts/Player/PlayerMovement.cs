@@ -26,7 +26,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 firstPosition=touch.position;
                 lastPosition=touch.position;
-                transform.DOMove(new Vector3(transform.position.x,transform.position.y+1,transform.position.z+1),0.1f);
+                transform.DOJump(new Vector3(transform.position.x,transform.position.y+1,transform.position.z+1),2,1,0.2f);
+                //transform.DOMove(new Vector3(transform.position.x,transform.position.y+1,transform.position.z+1),0.1f);
+                EventManager.Broadcast(GameEvent.OnPlayerTakeStep);
             }
 
             else if(touch.phase==TouchPhase.Moved)

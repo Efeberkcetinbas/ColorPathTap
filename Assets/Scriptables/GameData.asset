@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameData
   m_EditorClassIdentifier: 
   score: 0
-  increaseScore: 0
+  increaseScore: 5
   LevelIndex: 0
   tempLevelIndex: 0
   isGameEnd: 0

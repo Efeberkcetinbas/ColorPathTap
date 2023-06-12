@@ -25,12 +25,14 @@ public class GameManager : MonoBehaviour
     {
         EventManager.AddHandler(GameEvent.OnIncreaseScore, OnIncreaseScore);
         EventManager.AddHandler(GameEvent.OnNextLevel,OnNextLevel);
+        EventManager.AddHandler(GameEvent.OnPlayerTakeStep,OnPlayerTakeStep);
     }
 
     private void OnDisable()
     {
         EventManager.RemoveHandler(GameEvent.OnIncreaseScore, OnIncreaseScore);
         EventManager.RemoveHandler(GameEvent.OnNextLevel,OnNextLevel);
+        EventManager.RemoveHandler(GameEvent.OnPlayerTakeStep,OnPlayerTakeStep);
     }
     
     void OnGameOver()
@@ -46,7 +48,7 @@ public class GameManager : MonoBehaviour
     void OnIncreaseScore()
     {
         //gameData.score += 50;
-        DOTween.To(GetScore,ChangeScore,gameData.score+gameData.increaseScore,1f).OnUpdate(UpdateUI);
+        DOTween.To(GetScore,ChangeScore,gameData.score+gameData.increaseScore,0.25f).OnUpdate(UpdateUI);
     }
 
     private int GetScore()
@@ -61,22 +63,26 @@ public class GameManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        EventManager.Broadcast(GameEvent.OnUIUpdate);
+        EventManager.Broadcast(GameEvent.OnScoreUIUpdate);
     }
 
     
     //Fade olup acilista cagirilacak
     private void OnNextLevel()
     {
-        pathData.tempPathNumber=0;
-        pathData.pathNumber=FindObjectOfType<LevelPathNumber>().pathNumber;
         EventManager.Broadcast(GameEvent.OnUIUpdateLevelText);
+        EventManager.Broadcast(GameEvent.OnUIUpdateProgressBar);
+    }
+
+    private void OnPlayerTakeStep()
+    {
+        pathData.tempPathNumber++;
         EventManager.Broadcast(GameEvent.OnUIUpdateProgressBar);
     }
     
     void ClearData()
     {
-
+       
     }
 
     

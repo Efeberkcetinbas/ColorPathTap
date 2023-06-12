@@ -6,7 +6,7 @@ public class PathInteract : Interactable
 {   
     [SerializeField] private int colorIndex;
 
-
+    public PlayerData playerData;
     public PathInteract()
     {
         canStay=false;
@@ -17,10 +17,12 @@ public class PathInteract : Interactable
         if(colorIndex==player.playerColorIndex)
         {
             player.transform.parent=this.transform;
+            EventManager.Broadcast(GameEvent.OnIncreaseScore);
             Debug.Log("+1 Score");
         }
         else
         {
+            //playerData.playerCanMove=false;
             Debug.Log("GAME OVER");
         }
     }

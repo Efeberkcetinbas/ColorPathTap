@@ -6,11 +6,12 @@ public enum GameEvent
 {
     //Player
     OnTargetHit,
+    OnPlayerTakeStep,
 
 
     //Game Management
     OnIncreaseScore,
-    OnUIUpdate,
+    OnScoreUIUpdate,
     OnUIGameOver,
     OnNextLevel,
     OnUIUpdateLevelText,

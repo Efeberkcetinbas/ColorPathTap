@@ -18,19 +18,19 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.AddHandler(GameEvent.OnUIUpdate, OnUIUpdate);
+        EventManager.AddHandler(GameEvent.OnScoreUIUpdate, OnScoreUIUpdate);
         EventManager.AddHandler(GameEvent.OnUIUpdateLevelText,OnUIUpdateLevelText);
         EventManager.AddHandler(GameEvent.OnUIUpdateProgressBar,OnUIUpdateProgressBar);
     }
     private void OnDisable()
     {
-        EventManager.RemoveHandler(GameEvent.OnUIUpdate, OnUIUpdate);
+        EventManager.RemoveHandler(GameEvent.OnScoreUIUpdate, OnScoreUIUpdate);
         EventManager.RemoveHandler(GameEvent.OnUIUpdateLevelText,OnUIUpdateLevelText);
         EventManager.RemoveHandler(GameEvent.OnUIUpdateProgressBar,OnUIUpdateProgressBar);
     }
 
     
-    void OnUIUpdate()
+    void OnScoreUIUpdate()
     {
         score.SetText(gameData.score.ToString());
         score.transform.DOScale(new Vector3(1.5f,1.5f,1.5f),0.2f).OnComplete(()=>score.transform.DOScale(new Vector3(1,1f,1f),0.2f));

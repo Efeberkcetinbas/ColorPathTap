@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorIndex: 0
+  playerData: {fileID: 11400000, guid: 1af2af3a638ac3340b25d12a7db18cde, type: 2}
 --- !u!114 &8215552481129315527
 MonoBehaviour:
   m_ObjectHideFlags: 0

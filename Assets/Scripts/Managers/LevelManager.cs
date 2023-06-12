@@ -10,10 +10,13 @@ public class LevelManager : MonoBehaviour
 
 
     public GameData gameData;
+    public PathData pathData;
 
     private void Start()
     {
         LoadLevel();
+        pathData.tempPathNumber=0;
+        pathData.pathNumber=FindObjectOfType<LevelPathNumber>().pathNumber;
     }
     private void LoadLevel()
     {
@@ -31,6 +34,8 @@ public class LevelManager : MonoBehaviour
     {
         gameData.LevelIndex++;
         gameData.tempLevelIndex++;
+        pathData.tempPathNumber=0;
+        pathData.pathNumber=FindObjectOfType<LevelPathNumber>().pathNumber;
         EventManager.Broadcast(GameEvent.OnNextLevel);
         LoadLevel();
     }
