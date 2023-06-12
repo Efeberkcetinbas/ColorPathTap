@@ -19,6 +19,7 @@ public class PathInteract : Interactable
             player.transform.parent=this.transform;
             player.transform.DOLocalMove(Vector3.zero,0.1f);
             //player.transform.localPosition=Vector3.zero;
+            EventManager.Broadcast(GameEvent.OnPlayerTakeStep);
             EventManager.Broadcast(GameEvent.OnIncreaseScore);
             Debug.Log("+1 Score");
         }

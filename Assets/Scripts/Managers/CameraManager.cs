@@ -14,21 +14,19 @@ public class CameraManager : MonoBehaviour
 
     Vector3 cameraInitialPosition;
 
-    [Header("Shake Control")]
-    public float shakeMagnitude = 0.05f;
     public float shakeTime = 0.5f;
 
 
     private void OnEnable() 
     {
-        EventManager.AddHandler(GameEvent.OnTargetHit,OnHit);
         EventManager.AddHandler(GameEvent.OnGameOver,GameOver);
+        EventManager.AddHandler(GameEvent.OnPlayerTakeStep,OnPlayerTakeStep);
     }
 
     private void OnDisable()
     {
-        EventManager.RemoveHandler(GameEvent.OnTargetHit,OnHit);
         EventManager.RemoveHandler(GameEvent.OnGameOver,GameOver);
+        EventManager.RemoveHandler(GameEvent.OnPlayerTakeStep,OnPlayerTakeStep);
     }
 
     private void Start() 
@@ -43,6 +41,11 @@ public class CameraManager : MonoBehaviour
     void OnHit()
     {
         ChangeFieldOfView(82,0.1f);
+    }
+
+    private void OnPlayerTakeStep()
+    {
+        Noise(3,3);
     }
 
     

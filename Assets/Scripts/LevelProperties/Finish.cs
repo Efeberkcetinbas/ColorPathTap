@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Finish : Interactable
 {
+    public GameData gameData;
     public Finish()
     {
         canStay=false;
@@ -11,6 +12,7 @@ public class Finish : Interactable
 
     internal override void DoAction(PlayerTrigger player)
     {
+        gameData.isGameEnd=true;
         EventManager.Broadcast(GameEvent.OnSuccess);
     }
 }
