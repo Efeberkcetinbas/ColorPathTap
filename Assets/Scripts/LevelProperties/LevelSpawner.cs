@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LevelSpawner : MonoBehaviour
 {
-    public bool canPathMove;
     public bool onePath,fivePath,tenPath;
 
     public GameObject onePathGameObject,fivePathGameObject,tenPathGameObject;
