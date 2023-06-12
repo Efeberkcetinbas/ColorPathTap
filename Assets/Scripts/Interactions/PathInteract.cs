@@ -5,6 +5,8 @@ using UnityEngine;
 public class PathInteract : Interactable
 {   
     [SerializeField] private int colorIndex;
+
+
     public PathInteract()
     {
         canStay=false;

@@ -5,10 +5,11 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
 
-    [Header("Indexes")]
-    public int levelIndex;
     
     public List<GameObject> levels;
+
+
+    public GameData gameData;
 
     private void Start()
     {
@@ -17,23 +18,19 @@ public class LevelManager : MonoBehaviour
     private void LoadLevel()
     {
 
-
-        levelIndex = PlayerPrefs.GetInt("LevelNumber");
-        if (levelIndex == levels.Count) levelIndex = 0;
-        PlayerPrefs.SetInt("LevelNumber", levelIndex);
-       
+        if (gameData.LevelIndex == levels.Count) gameData.LevelIndex = 0;
 
         for (int i = 0; i < levels.Count; i++)
         {
             levels[i].SetActive(false);
         }
-        levels[levelIndex].SetActive(true);
+        levels[gameData.LevelIndex].SetActive(true);
     }
 
     public void LoadNextLevel()
     {
-        PlayerPrefs.SetInt("LevelNumber", levelIndex + 1);
-        PlayerPrefs.SetInt("RealLevel", PlayerPrefs.GetInt("RealLevel", 0) + 1);
+        gameData.LevelIndex++;
+        gameData.tempLevelIndex++;
         EventManager.Broadcast(GameEvent.OnNextLevel);
         LoadLevel();
     }

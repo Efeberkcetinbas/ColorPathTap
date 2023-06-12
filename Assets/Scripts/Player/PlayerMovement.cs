@@ -9,9 +9,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 firstPosition;
     private Vector3 lastPosition;
 
+    public PlayerData playerData;
+
     private void Update() 
-    {
-        CheckMove();        
+    {   
+        if(playerData.playerCanMove)
+            CheckMove();        
     }
 
     private void CheckMove()
@@ -23,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 firstPosition=touch.position;
                 lastPosition=touch.position;
-                transform.DOMoveZ(transform.position.z+1,0.1f);
+                transform.DOMove(new Vector3(transform.position.x,transform.position.y+1,transform.position.z+1),0.1f);
             }
 
             else if(touch.phase==TouchPhase.Moved)

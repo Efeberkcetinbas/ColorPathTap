@@ -7,11 +7,11 @@ public class GameManager : MonoBehaviour
 {
     public GameData gameData;
     public PlayerData playerData;
+    public PathData pathData;
 
     [SerializeField] private GameObject FailPanel;
     [SerializeField] private Ease ease;
 
-    public float InitialDifficultyValue;
 
 
     private void Awake() 
@@ -24,11 +24,13 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         EventManager.AddHandler(GameEvent.OnIncreaseScore, OnIncreaseScore);
+        EventManager.AddHandler(GameEvent.OnNextLevel,OnNextLevel);
     }
 
     private void OnDisable()
     {
         EventManager.RemoveHandler(GameEvent.OnIncreaseScore, OnIncreaseScore);
+        EventManager.RemoveHandler(GameEvent.OnNextLevel,OnNextLevel);
     }
     
     void OnGameOver()
@@ -63,7 +65,14 @@ public class GameManager : MonoBehaviour
     }
 
     
-
+    //Fade olup acilista cagirilacak
+    private void OnNextLevel()
+    {
+        pathData.tempPathNumber=0;
+        pathData.pathNumber=FindObjectOfType<LevelPathNumber>().pathNumber;
+        EventManager.Broadcast(GameEvent.OnUIUpdateLevelText);
+        EventManager.Broadcast(GameEvent.OnUIUpdateProgressBar);
+    }
     
     void ClearData()
     {

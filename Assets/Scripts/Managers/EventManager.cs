@@ -13,6 +13,8 @@ public enum GameEvent
     OnUIUpdate,
     OnUIGameOver,
     OnNextLevel,
+    OnUIUpdateLevelText,
+    OnUIUpdateProgressBar,
     OnGameOver
 }
 public class EventManager
