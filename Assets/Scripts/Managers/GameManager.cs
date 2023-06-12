@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject FailPanel;
     [SerializeField] private Ease ease;
 
+    public List<GameObject> PathGameObjects=new List<GameObject>();
+
+    [SerializeField] private Transform player;
 
 
     private void Awake() 
@@ -26,6 +29,7 @@ public class GameManager : MonoBehaviour
         EventManager.AddHandler(GameEvent.OnIncreaseScore, OnIncreaseScore);
         EventManager.AddHandler(GameEvent.OnNextLevel,OnNextLevel);
         EventManager.AddHandler(GameEvent.OnPlayerTakeStep,OnPlayerTakeStep);
+        EventManager.AddHandler(GameEvent.OnSuccess,OnSuccess);
     }
 
     private void OnDisable()
@@ -33,6 +37,7 @@ public class GameManager : MonoBehaviour
         EventManager.RemoveHandler(GameEvent.OnIncreaseScore, OnIncreaseScore);
         EventManager.RemoveHandler(GameEvent.OnNextLevel,OnNextLevel);
         EventManager.RemoveHandler(GameEvent.OnPlayerTakeStep,OnPlayerTakeStep);
+        EventManager.RemoveHandler(GameEvent.OnSuccess,OnSuccess);
     }
     
     void OnGameOver()
@@ -80,10 +85,29 @@ public class GameManager : MonoBehaviour
         EventManager.Broadcast(GameEvent.OnUIUpdateProgressBar);
     }
     
-    void ClearData()
+    private IEnumerator ClearList()
     {
-       
+        player.SetParent(null);
+        for (int i = 0; i < PathGameObjects.Count; i++)
+        {
+            Destroy(PathGameObjects[i]);
+        }
+
+        yield return new WaitForSeconds(1);
+        PathGameObjects.Clear();
     }
+
+    private void OnSuccess()
+    {
+        StartCoroutine(ClearList());
+    }
+
+    private void ClearData()
+    {
+
+    }
+
+    
 
     
 }

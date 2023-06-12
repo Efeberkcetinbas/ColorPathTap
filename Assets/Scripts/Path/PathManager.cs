@@ -7,15 +7,16 @@ public class PathManager : MonoBehaviour
     public List<PathControl> paths=new List<PathControl>();
 
     public List<Vector3> positions=new List<Vector3>();
-    
 
+    [SerializeField] private bool canShuffle;
 
     private void OnEnable()
     {
-        Debug.Log("WWWW");
-        MakeRandomPos();
+        if(canShuffle)
+            MakeRandomPos();
     }
 
+  
     private void MakeRandomPos()
     {
         paths.Shuffle(paths.Count);
@@ -25,6 +26,8 @@ public class PathManager : MonoBehaviour
             //targets[i].localRotation=Quaternion.Euler(rotations[i]);
         }
     }
+
+   
 
 
 }
