@@ -6,7 +6,7 @@ public class LevelSpawner : MonoBehaviour
 {
     public bool onePath,fivePath,tenPath;
 
-    public GameObject onePathGameObject,fivePathGameObject,tenPathGameObject;
+    public GameObject onePathGameObject,fivePathGameObject,tenPathGameObject,finish;
 
     public GameManager gameManager;
 
@@ -41,6 +41,8 @@ public class LevelSpawner : MonoBehaviour
             GameObject paths=Instantiate(gameObject,new Vector3(0,i,i),Quaternion.identity);
             gameManager.PathGameObjects.Add(paths);
         }
+
+        GameObject _finish=Instantiate(finish,new Vector3(0,x,x),Quaternion.identity);
     }
 
 }
